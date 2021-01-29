@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <div id="container">
+        
+    </div>
+</body>
+</html>
+<script>
+    const headers = new Headers()
+    headers.append('authorization', `Bearer ${localStorage.token}`)
+    fetch('/api/product', {
+        method: 'GET',
+        headers: headers
+    })
+    .then(res => res.json())
+    .then(data => {
+        const fragment = document.createDocumentFragment()
+        const render = document.getElementById('container')
+        console.log(data)
+        for(const product of Object.values(data.products)){
+            const newProduct = document.createElement('UL')
+            for(const prop of Object.keys(product)){
+                if(prop != "_id" && prop != "__v"){
+                    const productProp = document.createElement('LI')
+                    productProp.textContent = `${prop}: ${product[prop]}`
+                    newProduct.appendChild(productProp)                
+                }
+            }
+            fragment.appendChild(newProduct)
+        }
+        render.appendChild(fragment)
+    })
+</script>

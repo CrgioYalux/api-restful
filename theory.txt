@@ -1,0 +1,78 @@
+Puntos interesantes:
+
+1. El comando "npm install librería --save"
+   Se puede acortar "npm i librería -S"
+Este comando sirve para instalar/descargar una dependencia para su uso.
+Agregar el plug -g hace que la instalación sea global por lo que solo se necesitará
+instalar una sola vez. Sin embargo, si el proyecto necesita de esa librería para funcionar
+se debe instalar localmente porque al pasar a otro dev-env, este no funcionará ya que
+falta la librería que se utilizó.
+
+2. Agregar el plug "--save" o "-S" hace que se guarde la librería en el package.json como una dependencia.
+
+3. "npm install" descargará e instalará todas las librerías/dependencias que contenga el archivo package.json.
+
+4. "use strict" sirve para capturar algunos errores comunes en nuestro código y nos muestra las excepciones,
+básicamente sirve para, de haber un error, obtener más detalles de donde se encuentra ese error
+
+5. "body-parser" es una librería que sirve para que cuando se hagan peticiones de tipo POST se pueda parsear
+el cuerpo de la petición para poder manejarlos
+
+6. El plug "-D" hace que a la hora de instalar una dependencia esta se instale como devDepency
+o dependencia de desarrollo. Aparece una gran diferencia entre dependencia que se utiliza para crear el proyecto
+y dependencia que el proyecto necesita para funcionar. Ex: Nodemon funciona como un live server, por lo que es útil
+cuando se está desarrollando pero no para la app en produccion, por lo tanto se le agrega el -D.
+
+7. Endpoint: Una punto final de comunicación es un tipo de nodo de red de comunicación.
+
+8. Protocolo HTTP. Tipos de peticiones principales para que una app/api sea restful son:
+    - GET: lectura, se piden datos al servidor. Se hace comunmente desde la url, sin más datos que el
+    punto de acceso o endpoint. GET /url/dato.extension
+    - POST: escritura, se envian datos al servidor para que se queden almacenados. En este caso, funciona parecido
+    al anterior pero en este caso los datos viajan en el cuerpo del msj y no en la cabezera. (+ seguro).
+    - PUT: actualización de un dato almacenado.
+    - DELETE: borrar. Es una petición que se hace desde el cliente al servidor para indicarle que se borre un archivo. 
+
+9. Códigos de respuesta: Son los que se enviarán desde el servidor/API al cliente para informarle como salió la petición.
+    - Se utilizan los 2xx para indicar que todo salió bien.
+    - Se utilizan los 3xx cuando hay una redirección desde una url a otra.
+    - Se utilizan los 4xx cuando hubo un error o no encontró un recurso en el servidor.
+    ex: Si se hace un get a un recurso en el servidor pero este no está, el servidor nos devuelve un 404.
+    - Finalmente, se utilizan los 5xx para indicar que hay un error en el servidor o db, no en el cliente.
+
+10. Las peticiones (menos las de tipo GET) tienen un body en el que se indica los datos que se van a almacenar o manejar en el servidor.
+
+11. En las cabeceras/headers se puede encontrar si hay cache, si está autorizado el recurso, que nav se está usando, + info de este tipo.
+
+12. Se instala MongoDB como base de datos, y moongose para manejarla.
+Al instalar la base de datos, escribir "mongod" en una terminal en la carpeta del proyecto para inicar la db.
+
+13. Mongoose tiene un método "connect" al que se la pasa una string con la url en donde se encuentra la base de datos,
+y, a través de un callback, nos permite conectarnos a esta.
+
+14. RUN "C:\Program Files\MongoDB\Server\4.4\bin\mongo.exe" para comenzar el servicio de mongodbb
+
+15. Se utiliza una librería para hashear/encriptar la contraseña para que si alguien entra a la db no se pueda robar los datos.
+
+16. En password se instancia un { select: false } para que, por defecto, cada vez que se haga un GET de algún usuario, la contraseña,
+no nos la envíe al cliente, con esto se evite problemas de seguridad.
+
+17. Se puede declarar funcionan pre y post realizar una acción con mongoose.
+
+18. Al momento de autenticar y registrar un usuario en la app a través de la api rest, existen varias alternativas:
+    - Si la api renderizara las plantillas necesarias para la app, es decir que no se estuviera utilizando un frontend aparte,
+    sino que todo estaría concentrado en el mismo codigo, se podrían utilizar librerías como passwordjs, que nos permiten una autenticacón
+    de forma más sencilla (utilizando usuario y contraseña, y proveedores de servicios, como utilización social: facebook, twitter, (gmail?))
+    - Sin embargo si se quiere que la api rest sea escalable, es decir que sirva para cualquier frontend, incluso para una app móvil, es decir
+    que esté totalmente separado lo que es el servidor (la api rest) de la aplicación cliente, aquí la mejor opción es una autenticación basada en tokens.
+    Esto consiste en que el usuario va a enviar un código al servidor y el servidor se encarga de traducir/descifrar ese código y así obtener que usuario es,
+    si se encuentra registrado, y que acceso tiene a determinadas partes de la aplicación.
+    Esto permite el no guardar sesiones en el servidor y hacerlo así más ligero. La lógica recae del lado del cliente.
+    
+    Un token es un código alfanumérico. El standar más utilizado para realizar estos tokens en apps web, son los json web tokens.
+    
+19. El id del payload no debe ser el mismo del de la base de datos porque sería inseguro.
+
+20. Se utiliza un middleware para que determinadas rutas sean privadas, es decir que no cualquier usuario pueda acceder a ellas si no se encuentra autenticado.
+
+21. Con signIn se busca en la base de datos los usuarios que tengan el email que se esta ingresando por la petición, y si existe se creará un token que viajará en las cabeceras.
